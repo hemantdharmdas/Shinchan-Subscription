@@ -1,9 +1,7 @@
-# ───────────────────────────── app.py ─────────────────────────────
 import os
 import time
 import requests
 from flask import Flask, render_template, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField
 from wtforms.validators import DataRequired, Length, Regexp
@@ -18,8 +16,6 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///subscriptions.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join("static", "uploads")
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5 MB
 
@@ -27,22 +23,8 @@ app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5 MB
 TELEGRAM_BOT_TOKEN = "8193927885:AAFBidm4BsnguwXWptcYtABCBJqRZTXq54o"
 TELEGRAM_CHAT_ID = "1618076958"
 
-db = SQLAlchemy(app)
-
 # ------------------------------------------------------------------
-# 2.  DATABASE MODEL
-# ------------------------------------------------------------------
-class Subscription(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    telegram = db.Column(db.String(100), nullable=False)
-    instagram = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.String(10), nullable=False)
-    payment_screenshot = db.Column(db.String(200), nullable=False)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-
-# ------------------------------------------------------------------
-# 3.  FORM DEFINITION
+# 2.  FORM DEFINITION
 # ------------------------------------------------------------------
 class SubscriptionForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(max=100)])
@@ -55,7 +37,7 @@ class SubscriptionForm(FlaskForm):
     )
 
 # ------------------------------------------------------------------
-# 4.  ROUTES
+# 3.  ROUTES
 # ------------------------------------------------------------------
 @app.route("/")
 def index():
@@ -87,24 +69,13 @@ def submit_subscription():
             {"success": False, "message": "Form validation failed", "errors": form.errors}
         ), 400
 
-    # 1. Save screenshot
+    # Save screenshot
     os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
     filename = f"{int(time.time())}_{secure_filename(form.payment_screenshot.data.filename)}"
     save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     form.payment_screenshot.data.save(save_path)
 
-    # 2. Write to DB
-    new_sub = Subscription(
-        name=form.name.data,
-        telegram=form.telegram.data,
-        instagram=form.instagram.data,
-        phone=form.phone.data,
-        payment_screenshot=filename,
-    )
-    db.session.add(new_sub)
-    db.session.commit()
-
-    # 3. Send Telegram notification
+    # Send Telegram notification
     caption = (
         "<b>New Subscription Received</b>\n"
         f"Name: {form.name.data}\n"
@@ -117,7 +88,7 @@ def submit_subscription():
             {"success": False, "message": "Failed to send Telegram notification"}
         ), 500
 
-    # 4. Success response (toast + redirect handled in JS)
+    # Success response (JS handles toast + redirect)
     return jsonify(
         {
             "success": True,
@@ -127,9 +98,7 @@ def submit_subscription():
     )
 
 # ------------------------------------------------------------------
-# 5.  APP STARTUP
+# 4.  APP STARTUP
 # ------------------------------------------------------------------
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
