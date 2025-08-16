@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OG Shinchan Subscription{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Original light for hero */
+            --button-bg-normal: #000000; /* Black background for normal state */
+            --button-text-normal: #ffffff; /* White text for normal state */
+            --button-bg-hover: #ffffff; /* White background on hover */
+            --button-text-hover: #764ba2; /* Purple text on hover */
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .gradient-btn {
+            background: var(--button-bg-normal);
+            border: none;
+            color: var(--button-text-normal);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+        }
+        
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            background: var(--button-bg-hover); /* White background on hover */
+            color: var(--button-text-hover); /* Purple text on hover */
+        }
+        
+        .gradient-btn-secondary {
+            background: var(--secondary-gradient);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(240, 147, 251, 0.4);
+            color: white;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .toast {
+            border-radius: 15px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        /* Mobile-specific hero tweaks */
+        @media (max-width: 767px) {
+            .hero-section .row {
+                text-align: center; /* Center text and button */
+            }
+            .hero-section .gradient-btn {
+                margin-bottom: 2rem; /* Spacing below button */
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+                <i class="bi bi-play-circle-fill text-primary"></i> Shinchan Unseen
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('subscribe') }}">Subscribe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main style="margin-top: 76px;">
+        {% block content %}{% endblock %}
+    </main>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="mb-3">Follow Us</h5>
+                <!-- Telegram icon with new link -->
+                <a href="https://t.me/shinchanunseenfree"
+                   class="social-icon"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="bi bi-telegram"></i>
+                </a>
+                <!-- Instagram icon (placeholder) -->
+                <a href="https://www.instagram.com/shinchanunseen_?igsh=cjZqYnBxYTFtaXJk"
+                   class="social-icon"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="bi bi-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toast-message">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        // Toast function
+        function showToast(message, isError = false) {
+            const toastElement = document.getElementById('liveToast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastHeader = toastElement.querySelector('.toast-header');
+            
+            toastMessage.textContent = message;
+            
+            // Change icon and color based on message type
+            const icon = toastHeader.querySelector('i');
+            if (isError) {
+                icon.className = 'bi bi-exclamation-triangle-fill text-danger me-2';
+                toastHeader.querySelector('strong').textContent = 'Error';
+            } else {
+                icon.className = 'bi bi-check-circle-fill text-success me-2';
+                toastHeader.querySelector('strong').textContent = 'Success';
+            }
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

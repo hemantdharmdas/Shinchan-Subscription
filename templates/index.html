@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1 class="display-4 fw-bold mb-4" data-aos="fade-up">
+                    Watch the OG Shinchan
+                </h1>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">
+                    Watch regular OG episodes of Shinchan with English subtitles
+                </p>
+                <div class="price-section mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="fw-bold">Just ₹69 For Complete Month</h3>
+                </div>
+                <a href="{{ url_for('subscribe') }}" class="gradient-btn btn-lg" data-aos="fade-up" data-aos-delay="600">
+                    <i class="bi bi-play-circle me-2"></i>Subscribe Now
+                </a>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
+                <img src="{{ url_for('static', filename='images/shinchan.jpg') }}" 
+                     alt="Shinchan" 
+                     class="img-fluid rounded-4 shadow-lg"
+                     style="max-height: 400px; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-play-btn display-4 text-primary mb-3"></i>
+                        <h5 class="card-title">Original Episodes</h5>
+                        <p class="card-text">Watch authentic OG Shinchan episodes with high quality video.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-translate display-4 text-success mb-3"></i>
+                        <h5 class="card-title">English Subtitles</h5>
+                        <p class="card-text">Enjoy episodes with accurate English subtitles for better understanding.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-month display-4 text-info mb-3"></i>
+                        <h5 class="card-title">Monthly Access</h5>
+                        <p class="card-text">Get unlimited access for a full month at an affordable price.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">Ready to Start Watching?</h2>
+                <p class="lead mb-4">Join thousands of fans enjoying OG Shinchan episodes with English subtitles.</p>
+                <a href="{{ url_for('subscribe') }}" class="gradient-btn-secondary btn-lg">
+                    <i class="bi bi-arrow-right me-2"></i>Get Started Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Subscription Header -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h1 class="fw-bold mb-3" data-aos="fade-up">Steps to get the OG Episodes</h1>
+        <p class="lead" data-aos="fade-up" data-aos-delay="200">Follow these simple steps to subscribe</p>
+    </div>
+</section>
+
+<!-- Payment Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4" data-aos="fade-up">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold mb-4">Payment Information</h3>
+                        
+                        <!-- QR Code Placeholder -->
+                        <div class="mb-4">
+                            <img src="{{ url_for('static', filename='images/qr.png') }}" 
+                                 alt="Payment QR Code" 
+                                 class="img-fluid rounded shadow"
+                                 style="max-width: 300px;">
+                        </div>
+                        
+                        <!-- Alternate Payment Method -->
+                        <div class="alert alert-info" role="alert">
+                            <h5 class="alert-heading">
+                                <i class="bi bi-credit-card me-2"></i>Alternate Payment Method
+                            </h5>
+                            <p class="mb-0">
+                                <strong>UPI ID:</strong> <code>hemantdharmdas@ybl</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Steps Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h3 class="text-center fw-bold mb-5" data-aos="fade-up">Payment Steps</h3>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 p-3">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-camera-fill"></i>
+                                </div>
+                                <h6 class="fw-bold">Step 1</h6>
+                                <p class="mb-0">Take a screenshot of QR or copy the UPI ID</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 p-3">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-phone-fill"></i>
+                                </div>
+                                <h6 class="fw-bold">Step 2</h6>
+                                <p class="mb-0">Open any UPI app</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 p-3">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-currency-rupee"></i>
+                                </div>
+                                <h6 class="fw-bold">Step 3</h6>
+                                <p class="mb-0">Pay ₹69 to the QR or UPI ID</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card h-100 p-3">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+                                </div>
+                                <h6 class="fw-bold">Step 4</h6>
+                                <p class="mb-0">Take a screenshot of the payment and fill the form</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="500">
+                    <button type="button" class="gradient-btn btn-lg" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
+                        <i class="bi bi-file-earmark-plus me-2"></i>Fill Form
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Subscription Modal -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="subscriptionModalLabel">
+                    <i class="bi bi-file-earmark-plus me-2"></i>Subscription Form
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="subscriptionForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.name.id }}" class="form-label">
+                                <i class="bi bi-person me-1"></i>Name *
+                            </label>
+                            {{ form.name(class="form-control") }}
+                            <div class="invalid-feedback" id="name-error"></div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.phone.id }}" class="form-label">
+                                <i class="bi bi-telephone me-1"></i>Phone Number *
+                            </label>
+                            {{ form.phone(class="form-control", placeholder="10 digit number") }}
+                            <div class="invalid-feedback" id="phone-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.telegram.id }}" class="form-label">
+                                <i class="bi bi-telegram me-1"></i>Telegram Username *
+                            </label>
+                            {{ form.telegram(class="form-control", placeholder="@username") }}
+                            <div class="invalid-feedback" id="telegram-error"></div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.instagram.id }}" class="form-label">
+                                <i class="bi bi-instagram me-1"></i>Instagram Username *
+                            </label>
+                            {{ form.instagram(class="form-control", placeholder="@username") }}
+                            <div class="invalid-feedback" id="instagram-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.payment_screenshot.id }}" class="form-label">
+                            <i class="bi bi-image me-1"></i>Payment Screenshot *
+                        </label>
+                        {{ form.payment_screenshot(class="form-control", accept=".jpg,.jpeg,.png") }}
+                        <div class="form-text">Upload JPG, JPEG, or PNG file (max 5MB)</div>
+                        <div class="invalid-feedback" id="payment_screenshot-error"></div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>Cancel
+                    </button>
+                    <button type="submit" class="gradient-btn" id="submitBtn">
+                        <i class="bi bi-check-circle me-1"></i>Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Disable submit button and show loading
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+    
+    // Clear previous errors
+    document.querySelectorAll('.form-control').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+    document.querySelectorAll('.invalid-feedback').forEach(el => {
+        el.textContent = '';
+    });
+    
+    fetch('{{ url_for("submit_subscription") }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('subscriptionModal'));
+            modal.hide();
+            
+            // Show success toast
+            showToast(data.message);
+            
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.open(data.redirect, '_blank');
+            }, 2000);
+        } else {
+            // Show error toast
+            showToast(data.message, true);
+            
+            // Display field errors
+            if (data.errors) {
+                Object.keys(data.errors).forEach(field => {
+                    const fieldElement = document.getElementById(field);
+                    const errorElement = document.getElementById(field + '-error');
+                    
+                    if (fieldElement && errorElement) {
+                        fieldElement.classList.add('is-invalid');
+                        errorElement.textContent = data.errors[field][0];
+                    }
+                });
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('An unexpected error occurred. Please try again.', true);
+    })
+    .finally(() => {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Submit';
+    });
+});
+</script>
+{% endblock %}
