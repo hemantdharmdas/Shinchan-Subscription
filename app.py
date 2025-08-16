@@ -48,18 +48,21 @@ def subscribe():
     form = SubscriptionForm()
     return render_template("subscribe.html", form=form)
 
-# Helper to send Telegram photo
+# Helper to send Telegram photo with retry & longer timeout
 def send_telegram_notification(photo_path: str, caption: str) -> bool:
     api_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendPhoto"
     with open(photo_path, "rb") as photo_file:
         files = {"photo": photo_file}
-        data = {
-            "chat_id": TELEGRAM_CHAT_ID,
-            "caption": caption,
-            "parse_mode": "HTML",
-        }
-        response = requests.post(api_url, data=data, files=files, timeout=15)
-    return response.status_code == 200
+        data = {"chat_id": TELEGRAM_CHAT_ID, "caption": caption, "parse_mode": "HTML"}
+        for _ in range(3):  # retry up to 3 times
+            try:
+                response = requests.post(api_url, data=data, files=files, timeout=60)
+                if response.status_code == 200:
+                    return True
+            except requests.exceptions.RequestException as e:
+                print(f"Telegram request failed: {e}, retrying...")
+                time.sleep(2)
+    return False
 
 @app.route("/submit_subscription", methods=["POST"])
 def submit_subscription():
