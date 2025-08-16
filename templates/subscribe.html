@@ -10,7 +10,7 @@
 </section>
 
 <!-- Payment Section -->
-<section class="py-5">
+<section class="py-5">  
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -209,19 +209,20 @@ document.getElementById('subscriptionForm').addEventListener('submit', function(
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            // Close modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('subscriptionModal'));
-            modal.hide();
-            
-            // Show success toast
-            showToast(data.message);
-            
-            // Redirect after 2 seconds
-            setTimeout(() => {
-                window.open(data.redirect, '_blank');
-            }, 2000);
-        } else {
+    if (data.success) {
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('subscriptionModal'));
+        modal.hide();
+        
+        // Show success toast
+        showToast(data.message);
+        
+        // Redirect after 2 seconds
+        setTimeout(() => {
+            window.location.href = data.redirect;  // <-- changed from window.open
+        }, 2000);
+    } 
+    else {
             // Show error toast
             showToast(data.message, true);
             
