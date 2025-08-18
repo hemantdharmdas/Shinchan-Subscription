@@ -12,11 +12,8 @@
                 <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">
                     Watch regular OG episodes of Shinchan with English subtitles
                 </p>
-                <div class="price-section mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="fw-bold">Just ₹69 For Complete Month</h3>
-                </div>
-                <a href="{{ url_for('subscribe') }}" class="gradient-btn btn-lg" data-aos="fade-up" data-aos-delay="600">
-                    <i class="bi bi-play-circle me-2"></i>Subscribe Now
+                <a href="#pricing" class="gradient-btn btn-lg" data-aos="fade-up" data-aos-delay="400">
+                    <i class="bi bi-play-circle me-2"></i>Watch Now
                 </a>
             </div>
             <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
@@ -24,6 +21,86 @@
                      alt="Shinchan" 
                      class="img-fluid rounded-4 shadow-lg"
                      style="max-height: 400px; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Plans Section -->
+<section id="pricing" class="py-6 bg-light">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-3">Choose Your Subscription Plan</h2>
+                <p class="lead text-muted">Get unlimited access to OG Shinchan episodes</p>
+            </div>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="row justify-content-center g-4">
+            <!-- 1 Month Plan -->
+            <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="pricing-card card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="pricing-icon mb-3">
+                            <i class="bi bi-calendar-month display-5 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Monthly Plan</h4>
+                        <p class="text-muted mb-4">Perfect for trying out</p>
+                        
+                        <div class="pricing-amount mb-4">
+                            <span class="h1 fw-bold text-primary">₹69</span>
+                            <span class="text-muted fs-6">/ month</span>
+                        </div>
+                        
+                        <a href="{{ url_for('subscribe', plan='monthly') }}" class="gradient-btn btn-lg pricing-btn-width">
+                            <i class="bi bi-play-circle me-2"></i>Subscribe Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3 Month Plan -->
+            <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="pricing-card card h-100 border-0 shadow-lg position-relative popular-plan">
+                    <!-- Popular Badge -->
+                    <div class="popular-badge">
+                        <span class="badge bg-warning text-dark fw-bold px-3 py-2">
+                            <i class="bi bi-star-fill me-1"></i>Most Popular
+                        </span>
+                    </div>
+                    
+                    <div class="card-body p-4 text-center">
+                        <div class="pricing-icon mb-3">
+                            <i class="bi bi-calendar3 display-5 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Quarterly Plan</h4>
+                        <p class="text-muted mb-4">Best value for money</p>
+                        
+                        <div class="pricing-amount mb-4">
+                            <span class="h1 fw-bold text-primary">₹199</span>
+                            <span class="text-muted fs-6">/ 3 months</span>
+                        </div>
+                        
+                        <a href="{{ url_for('subscribe', plan='quarterly') }}" class="gradient-btn-secondary btn-lg pricing-btn-width">
+                            <i class="bi bi-crown me-2"></i>Subscribe Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="row mt-5">
+            <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="300">
+                <p class="text-muted mb-3">
+                    <i class="bi bi-shield-check me-2"></i>
+                    Secure payment
+                </p>
+                <p class="small text-muted">
+                    All plans include unlimited streaming of OG Shinchan episodes with English subtitles
+                </p>
             </div>
         </div>
     </div>
@@ -55,8 +132,8 @@
                 <div class="card h-100 text-center p-4">
                     <div class="card-body">
                         <i class="bi bi-calendar-month display-4 text-info mb-3"></i>
-                        <h5 class="card-title">Monthly Access</h5>
-                        <p class="card-text">Get unlimited access for a full month at an affordable price.</p>
+                        <h5 class="card-title">Flexible Plans</h5>
+                        <p class="card-text">Choose between monthly or quarterly plans that suit your needs.</p>
                     </div>
                 </div>
             </div>
@@ -71,11 +148,94 @@
             <div class="col-lg-8 mx-auto" data-aos="fade-up">
                 <h2 class="fw-bold mb-4">Ready to Start Watching?</h2>
                 <p class="lead mb-4">Join thousands of fans enjoying OG Shinchan episodes with English subtitles.</p>
-                <a href="{{ url_for('subscribe') }}" class="gradient-btn-secondary btn-lg">
-                    <i class="bi bi-arrow-right me-2"></i>Get Started Now
+                <a href="#pricing" class="gradient-btn-secondary btn-lg">
+                    <i class="bi bi-arrow-up me-2"></i>Choose Your Plan
                 </a>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Pricing Section Styles */
+.py-6 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+}
+
+.pricing-card {
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.popular-plan {
+    border: 2px solid #ffc107 !important;
+    transform: scale(1.05);
+}
+
+.popular-plan:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.pricing-icon {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pricing-amount {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1rem;
+}
+
+/* Ensure both pricing buttons have the same width */
+.pricing-btn-width {
+    min-width: 180px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .popular-plan {
+        transform: none;
+        margin-top: 2rem;
+    }
+    
+    .popular-plan:hover {
+        transform: translateY(-8px);
+    }
+    
+    .hero-section .gradient-btn {
+        width: 100%;
+    }
+    
+    .pricing-btn-width {
+        width: 100%;
+    }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+</style>
 {% endblock %}
